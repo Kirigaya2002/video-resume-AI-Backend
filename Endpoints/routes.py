@@ -1,4 +1,5 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
+from numpy import byte
 from Services import *
 from Services import resume_audio
 from Services import video_decoder
@@ -8,12 +9,16 @@ from Services import transcript_audio
 routes = Blueprint("routes", __name__)
 
 @routes.get("/process-video")
-def process_video(Video: str):
+def process_video():
+
+    request_data = request.get_json()
+    Video = request_data.get("Video")
+
     # Pasar video de base 64 a mp4
     video_decoder.decode_video(Video)
 
     # Extraer audio del video
-    audio_extract.audio_extract("video.mp4", "audio.mp3")
+    audio_extract.audio_extract("./video.mp4", "audio.mp3")
 
     # Transcribir audio a texto
     transcription = transcript_audio.transcript_audio()
