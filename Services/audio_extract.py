@@ -1,4 +1,4 @@
-from moviepy.editor import VideoFileClip
+from moviepy import VideoFileClip
 
 def audio_extract(video_path: str, audio_path: str):
     video_clip = VideoFileClip(video_path)
