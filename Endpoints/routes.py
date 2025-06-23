@@ -8,7 +8,7 @@ from Services import transcript_audio
 
 routes = Blueprint("routes", __name__)
 
-@routes.get("/process-video")
+@routes.post("/process-video")
 def process_video():
 
     request_data = request.get_json()
